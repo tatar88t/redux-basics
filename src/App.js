@@ -7,6 +7,7 @@ import {Header} from './components/Header';
 import {Main} from './components/Main'
 import {Counter} from './components/Counter'
 import {Field} from './components/Field'
+import { Requestblock } from './components/RequestBlock';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Main />
           <Counter />
           <Field />
+          <Requestblock />
       </div>
     </Provider>
   );

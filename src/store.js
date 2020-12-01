@@ -1,4 +1,6 @@
-import {createStore, combineReducers} from 'redux';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+
+import thunk from 'redux-thunk';
 
 const initState = {
   firstName: 'John',
@@ -40,21 +42,23 @@ const newPersonReducer = (state=initStateNew, action) => {
     }
 }
 
-// const megaState = {
-//   person: {
-//     firstName: 'John',
-//     lastName: 'Travolta'  
-//   },
-//   counter: 7
-// }
+const apiReqReducer = (state={response: 'no data'}, action) => {
+  switch(action.type) {
+    case 'SHOW_RESPONSE':
+      return{...state, response: action.payload}
+    default:
+      return state
+  }
+}
 
 const rootReducer = combineReducers({
   person: reducer,
   counter: counterReducer,
-  newPerson: newPersonReducer
+  newPerson: newPersonReducer,
+  response: apiReqReducer
 })
 
-export const store = createStore(rootReducer);
+export const store = createStore(rootReducer, applyMiddleware(thunk));
 
 // const changeFirstName = {
 //   type: 'CHANGE_FIRST_NAME',
